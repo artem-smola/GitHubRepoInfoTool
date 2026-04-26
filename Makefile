@@ -1,18 +1,31 @@
-.PHONY: all run build fmt lint test down open docs
+SHELL := /bin/bash
 
-run:
+.PHONY: up down restart logs ps build test gen proto sqlc tidy
+
+up:
 	docker compose up --build -d
 
-build:
-	go build ./...
-
-fmt:
-	go fmt ./...
-
 down:
-	docker compose down --rmi local -v
+	docker compose down -v
 
-docs:
-	go run github.com/swaggo/swag/cmd/swag@v1.8.12 init -g cmd/main.go -d gateway --parseInternal --output gateway/docs
+restart: down up
 
-all: run
+logs:
+	docker compose logs -f --tail=200
+
+ps:
+	docker compose ps
+
+build:
+	docker compose build
+
+tidy:
+	cd repo-stat && go mod tidy
+
+gen: proto sqlc
+
+proto:
+	cd repo-stat && PATH="$$HOME/go/bin:$$PATH" protoc --go_out=. --go-grpc_out=. --go_opt=paths=source_relative --go-grpc_opt=paths=source_relative proto/subscriber/subscriber.proto proto/collector/collector.proto proto/processor/processor.proto
+
+sqlc:
+	cd repo-stat && PATH="$$HOME/go/bin:$$PATH" sqlc generate -f subscriber/sqlc.yaml
