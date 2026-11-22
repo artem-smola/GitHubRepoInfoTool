@@ -97,7 +97,6 @@ func (u *Subscription) GetSubscriptionsRepoInfo(ctx context.Context) ([]domain.S
 	return repositories, nil
 }
 
-
 func normalizeRepoName(repoName string) string {
 	repoName = strings.TrimSpace(repoName)
 	return strings.TrimSuffix(repoName, ".git")

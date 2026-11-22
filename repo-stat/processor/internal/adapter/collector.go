@@ -75,7 +75,7 @@ func (c *Client) GetSubscriptionsRepoInfo() ([]domain.SubscriptionRepoInfo, erro
 		})
 	}
 
-	return repositories, nil	
+	return repositories, nil
 }
 
 func (c *Client) Close() error {

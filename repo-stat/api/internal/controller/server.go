@@ -13,11 +13,11 @@ import (
 )
 
 type Server struct {
-	log                      *slog.Logger
-	router                   *gin.Engine
-	pingUsecase              *usecase.Ping
-	repoInfoUsecase          *usecase.GetRepoInfoUsecase
-	subscriptionUsecase      *usecase.Subscription
+	log                          *slog.Logger
+	router                       *gin.Engine
+	pingUsecase                  *usecase.Ping
+	repoInfoUsecase              *usecase.GetRepoInfoUsecase
+	subscriptionUsecase          *usecase.Subscription
 	subscriptionsRepoInfoUsecase *usecase.GetSubscriptionsRepoInfoUsecase
 }
 
@@ -33,11 +33,11 @@ func NewServer(
 	router.Use(gin.Recovery())
 
 	server := &Server{
-		log:                      log,
-		router:                   router,
-		pingUsecase:              pingUsecase,
-		repoInfoUsecase:          repoInfoUsecase,
-		subscriptionUsecase:      subscriptionUsecase,
+		log:                          log,
+		router:                       router,
+		pingUsecase:                  pingUsecase,
+		repoInfoUsecase:              repoInfoUsecase,
+		subscriptionUsecase:          subscriptionUsecase,
 		subscriptionsRepoInfoUsecase: subscriptionsRepoInfoUsecase,
 	}
 
@@ -259,7 +259,7 @@ func (s *Server) GetSubscriptionsRepoInfo(c *gin.Context) {
 	response := make([]dto.SubscriptionRepoInfo, 0, len(repositories))
 	for _, repository := range repositories {
 		response = append(response, dto.SubscriptionRepoInfo{
-			Name:    repository.Name,
+			Name:        repository.Name,
 			Description: repository.Description,
 			Stars:       int64(repository.StarsCount),
 			Forks:       int64(repository.ForksCount),

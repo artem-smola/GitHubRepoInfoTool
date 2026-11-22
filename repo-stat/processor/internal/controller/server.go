@@ -19,18 +19,18 @@ type GetRepoInfoUsecase interface {
 
 type Server struct {
 	processorpb.UnimplementedProcessorServer
-	log                  *slog.Logger
-	getRepoInfo          *usecase.GetRepoInfoUsecase
+	log                      *slog.Logger
+	getRepoInfo              *usecase.GetRepoInfoUsecase
 	getSubscriptionsRepoInfo *usecase.GetSubscriptionsRepoInfoUsecase
-	ping                 *usecase.Ping
+	ping                     *usecase.Ping
 }
 
 func NewServer(log *slog.Logger, getRepoInfo *usecase.GetRepoInfoUsecase, getSubscriptionsRepoInfo *usecase.GetSubscriptionsRepoInfoUsecase, ping *usecase.Ping) *Server {
 	return &Server{
-		log:                  log,
-		getRepoInfo:          getRepoInfo,
+		log:                      log,
+		getRepoInfo:              getRepoInfo,
 		getSubscriptionsRepoInfo: getSubscriptionsRepoInfo,
-		ping:                 ping,
+		ping:                     ping,
 	}
 }
 

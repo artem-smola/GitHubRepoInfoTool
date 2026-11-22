@@ -52,7 +52,7 @@ func (c *Client) AddSubscription(owner, repoName string) (*domain.Subscription, 
 	defer cancel()
 
 	resp, err := c.pb.AddSubscription(ctx, &subscriberpb.AddSubscriptionRequest{
-		Owner: owner,
+		Owner:    owner,
 		RepoName: repoName,
 	})
 	if err != nil {
@@ -61,9 +61,9 @@ func (c *Client) AddSubscription(owner, repoName string) (*domain.Subscription, 
 
 	subscription := resp.GetSubscription()
 	return &domain.Subscription{
-		ID: subscription.GetId(),
-		Owner: subscription.GetOwner(),
-		RepoName: subscription.GetRepoName(),
+		ID:        subscription.GetId(),
+		Owner:     subscription.GetOwner(),
+		RepoName:  subscription.GetRepoName(),
 		CreatedAt: subscription.GetCreatedAt(),
 	}, nil
 }
@@ -92,9 +92,9 @@ func (c *Client) GetSubscriptions() ([]domain.Subscription, error) {
 	result := make([]domain.Subscription, 0, len(subscriptions))
 	for _, subscription := range subscriptions {
 		result = append(result, domain.Subscription{
-			ID: subscription.GetId(),
-			Owner: subscription.GetOwner(),
-			RepoName: subscription.GetRepoName(),
+			ID:        subscription.GetId(),
+			Owner:     subscription.GetOwner(),
+			RepoName:  subscription.GetRepoName(),
 			CreatedAt: subscription.GetCreatedAt(),
 		})
 	}
@@ -104,4 +104,3 @@ func (c *Client) GetSubscriptions() ([]domain.Subscription, error) {
 func (c *Client) Close() error {
 	return c.conn.Close()
 }
-
